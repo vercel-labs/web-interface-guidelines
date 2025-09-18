@@ -154,7 +154,7 @@ These preferences reflect Vercel’s brand and product choices. They aren’t un
 
 An [AGENTS.md](https://agents.md/) file provides guidance for agents. Use this AGENTS.md with your agents to ensure your interfaces follow these guidelines. We recommend auditing all generated interfaces.
 
-- [Download AGENTS.md](https://1phiokm1pyaeustp.public.blob.vercel-storage.com/agent.md)
+- [Download AGENTS.md](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/refs/heads/main/AGENT.md)
 
 # Join Vercel
 
