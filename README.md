@@ -1,12 +1,10 @@
-# Web Interface Guidelines
-
-Interfaces succeed because of hundreds of choices. This is a living, non-exhaustive list of those decisions. Most guidelines are framework-agnostic, some are specific to React/Next.js.
+Interfaces succeed because of hundreds of choices. This is a living, non-exhaustive list of those decisions. Most guidelines are framework-agnostic, some specific to React/Next.js. [Feedback is welcome](https://github.com/vercel-labs/web-interface-guidelines/tree/main).
 
 ## Interactions
 
-- **Keyboard works everywhere.** All flows are keyboard-operable & follow the [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/).
+- **Keyboard works everywhere.** All flows are keyboard-operable & follow the [WAI-ARIA Authoring Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
 - **Clear focus.** Every focusable element shows a visible focus ring. Prefer `:focus-visible` over `:focus` to avoid distracting pointer users. Set `:focus-within` for grouped controls.
-- **Manage focus.** Use focus traps, move & return focus according to the WAI-ARIA patterns.
+- **Manage focus.** Use focus traps, move & return focus according to the [WAI-ARIA Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
 - **Match visual & hit targets.** Exception: if the visual target is < 24px, expand its hit target to ≥ 24px. On mobile, the minimum size is 44px.
 - **Mobile input size.** `<input>` font size is ≥ 16px on mobile to prevent iOS Safari auto-zoom/pan on focus. Or set `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />`.
 - **Respect zoom.** Never disable browser zoom.
@@ -14,7 +12,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Don’t block paste.** Never disable paste in `<input>` or `<textarea>`.
 - **Loading buttons.** Show a loading indicator & keep the original label.
 - **URL as state.** Persist state in the URL so share, refresh, and Back/Forward navigation work e.g., [nuqs](https://nuqs.47ng.com/).
-- **Optimistic updates.** Use when safe; reconcile with the server.
+- **Optimistic updates.** Update the UI immediately when success is likely; reconcile on server response. On failure, show an error and roll back or provide Undo.
 - **Ellipsis for further input.** Menu options that open a follow-up e.g., “Rename…” end with an ellipsis.
 - **Confirm destructive actions.** Require confirmation or provide Undo with a safe window.
 - **Prevent double-tap zoom on controls.** Set `touch-action: manipulation`.
@@ -26,7 +24,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Autofocus for speed.** On desktop screens with a single primary input, autofocus. Rarely autofocus on mobile because the keyboard opening can cause layout shift.
 - **No dead zones.** If part of a control looks interactive, it should be interactive. Don’t leave users guessing where to interact.
 - **Deep-link everything.** Filters, tabs, pagination, expanded panels, anytime `useState` is used.
-- **Clean drag interactions.** Disable text selection & apply `inert` (which prevents interaction) while an element is dragged so selection/hover don't occur simultaneously.
+- **Clean drag interactions.** Disable text selection & apply [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert) (which prevents interaction) while an element is dragged so selection/hover don't occur simultaneously.
 - **Links are links.** Use `<a>` or `<Link>` for navigation so standard browser behaviors work (Cmd/Ctrl+Click, middle-click, right-click to open in a new tab). Never substitute with `<button>` or `<div>` for navigational links.
 - **Announce async updates.** Use polite aria-live for toasts and inline validation.
 
@@ -34,7 +32,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 
 - **Honor `prefers-reduced-motion`.** Provide a reduced-motion variant.
 - **Implementation preference.** Prefer CSS, avoid main-thread JS-driven animations when possible.
-  - **Preference:** CSS > Web Animations API > Javascript libraries e.g., [motion](https://www.npmjs.com/package/motion).
+    - Preference: CSS > Web Animations API > Javascript libraries e.g., [motion](https://www.npmjs.com/package/motion).
 - **Compositor-friendly.** Prioritize GPU-accelerated properties (`transform`, `opacity`) & avoid properties that trigger reflows/repaints (`width`, `height`, `top`, `left`).
 - **Necessity check.** Only animate when it clarifies cause & effect or when it adds deliberate delight e.g., [the northern lights](https://x.com/JohnPhamous/status/1831380516509278561).
 - **Easing fits the subject.** Choose easing based on what changes (size, distance, trigger).
@@ -93,6 +91,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Placeholder value.** Set placeholder to an example value or pattern e.g., `+1 (123) 456-7890` & `sk-012345679…`
 - **Unsaved changes.** Warn before navigation when data could be lost.
 - **Password managers and 2FA.** Ensure compatibility and allow pasting one-time codes.
+- **Text replacements and expansions.** Some add a trailing whitespace. The input should trim the value to avoid showing a confusing error message.
 
 ## Performance
 
@@ -115,8 +114,9 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Hue consistency.** On non-neutral backgrounds, tint borders/shadows/text toward the same hue.
 - **Accessible charts.** Use color-blind-friendly palettes.
 - **Minimum contrast.** Prefer [APCA](https://apcacontrast.com/) over [WCAG 2](https://webaim.org/resources/contrastchecker/) for more accurate perceptual contrast.
-- **Interactions increase contrast.** `:hover`, `:active`, `:focus` have more contrast than rest state.
+- **Interactions increase contrast.** `:hover`, `:active`, `:focus` have more contrast than  rest state.
 - **Browser UI matches your background.** Set `<meta name="theme-color" content="#000000">` to [align the browser’s theme color with the page background](https://x.com/JohnPhamous/status/1816160187839107342).
+- **Avoid gradient banding.** Some colors & display types will have color banding. [Masks can be used instead](https://x.com/JohnPhamous/status/1724491202148675590).
 
 # Vercel-specific
 
@@ -125,32 +125,32 @@ These preferences reflect Vercel’s brand and product choices. They aren’t un
 ## Copywriting
 
 - **Active voice.**
-  - Instead of “_The CLI will be installed,”_ say _“Install the CLI.”_
+    - Instead of “*The CLI will be installed,”* say *“Install the CLI.”*
 - **Headings & buttons use Title Case** ([Chicago](https://title.sh/)). On marketing pages, use sentence case.
 - **Be clear & concise.** Use as few words as possible.
 - **Prefer `&` over `and`.**
 - **Action-oriented language.**
-  - Instead of _“You will need the CLI…”_ say _“Install the CLI…”_.
+    - Instead of *“You will need the CLI…”* say *“Install the CLI…”*.
 - **Keep nouns consistent.** Introduce as few unique terms as possible.
 - **Write in second person.** Avoid first person.
 - **Use consistent placeholders.**
-  - Strings: `YOUR_API_TOKEN_HERE`. Numbers: `0123456789`.
+    - Strings: `YOUR_API_TOKEN_HERE`. Numbers: `0123456789`.
 - **Use numerals for counts.**
-  - Instead of _“eight deployments”_ say _“8 deployments”_.
+    - Instead of *“eight deployments”* say *“8 deployments”*.
 - **Consistent currency formatting.** In any given context, display currency with either 0 or 2 decimal places, never mix both.
 - **Separate numbers & units with a space.**
-  - Instead of `10MB` say `10 MB`.
-  - Use a non-breaking space e.g., `10&nbsp;MB`.
+    - Instead of `10MB` say `10 MB`.
+    - Use a non-breaking space e.g., `10&nbsp;MB`.
 - **Default to positive language.** Frame messages in an encouraging, problem-solving way, even for errors.
-  - Instead of _“Your deployment failed,”_ say _“Something went wrong—try again or contact support.”_
+    - Instead of *“Your deployment failed,”* say *“Something went wrong—try again or contact support.”*
 - **Error messages guide the exit.** Don’t just state what went wrong—tell the user how to fix it.
-  - Instead of _“Invalid API key,”_ say _“Your API key is incorrect or expired. Generate a new key in your account settings.”_ The copy & buttons/links should educate & give a clear action.
+    - Instead of *“Invalid API key,”* say *“Your API key is incorrect or expired. Generate a new key in your account settings.”* The copy & buttons/links should educate & give a clear action.
 - **Avoid ambiguity.** Labels are clear & specific.
-  - Instead of the button label _“Continue”_ say _“Save API Key”_.
+    - Instead of the button label *“Continue”* say *“Save API Key”*.
 
 # Integrate with Agents
 
-An [AGENTS.md](https://agents.md/) file provides guidance for agents. Use this AGENT.md with your agents to ensure your interfaces follow these guidelines. We recommend auditing all generated interfaces.
+An [AGENTS.md](https://agents.md/) file provides guidance for agents. Use this AGENTS.md with your agents to ensure your interfaces follow these guidelines. We recommend auditing all generated interfaces.
 
 - [Download AGENTS.md](https://1phiokm1pyaeustp.public.blob.vercel-storage.com/agent.md)
 
@@ -160,4 +160,4 @@ We’re hiring people who live for these details. [Check out the job postings](h
 
 ---
 
-Thanks to [Adam](https://x.com/argyleink), [Jimmy](https://x.com/wwwjim) & [Jonnie](https://destroytoday.com/) for feedback.
+Thanks to [Adam](https://x.com/argyleink), [Jimmy](https://x.com/wwwjim), [Jonnie](https://destroytoday.com/) & [Lochie](https://x.com/lochieaxon) for feedback.
