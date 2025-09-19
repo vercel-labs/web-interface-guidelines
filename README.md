@@ -13,6 +13,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Hydration-safe inputs.** Inputs must not lose focus or value after hydration.
 - **Don’t block paste.** Never disable paste in `<input>` or `<textarea>`.
 - **Loading buttons.** Show a loading indicator & keep the original label.
+- **Minimum loading-state duration.** If you show a spinner/skeleton, add a short show-delay (~150–300 ms) & a minimum visible time (~300–500 ms) to avoid flicker on fast responses.
 - **URL as state.** Persist state in the URL so share, refresh, Back/Forward navigation work e.g., [nuqs](https://nuqs.47ng.com/).
 - **Optimistic updates.** Update the UI immediately when success is likely; reconcile on server response. On failure, show an error & roll back or provide Undo.
 - **Ellipsis for further input.** Menu options that open a follow-up e.g., “Rename…” end with an ellipsis.
@@ -42,6 +43,9 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Interruptible.** Animations are cancelable by user input.
 - **Input-driven.** Avoid autoplay; animate in response to actions.
 - **Correct transform origin.** Anchor motion to where it “physically” starts.
+- **Never `transition: all`.** Explicitly list only the properties you intend to animate (typically `opacity`, `transform`). `all` can unintentionally animate layout-affecting properties causing jank.
+- **Cross-browser SVG transforms.** Apply CSS transforms/animations to `<g>` wrappers & set
+  `transform-box: fill-box; transform-origin: center;`. Safari historically had bugs with transform-origin on SVG & grouping avoids origin miscalculation.
 
 ## Layout
 
@@ -70,6 +74,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Anchored headings.** Set `scroll-margin-top` for headers when linking to sections.
 - **Resilient to user-generated content.** Layouts handle short, average, & very long content.
 - **Locale-aware formats.** Format dates, times, numbers, delimiters, & currencies for the user’s locale.
+- **Prefer language settings over location.** Detect language via `Accept-Language` header & `navigator.languages`. Never rely on IP/GPS for language.
 - **Accessible content.** Set accurate names (`aria-label`), hide decoration (`aria-hidden`) & verify in the [accessibility tree](https://developer.chrome.com/blog/full-accessibility-tree).
 - **Icon-only buttons are named.** Provide a descriptive `aria-label`.
 - **Semantics before ARIA.** Prefer native elements (`button`, `a`, `label`, `table`), before `aria-*`.
@@ -95,6 +100,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Placeholder value.** Set placeholder to an example value or pattern e.g., `+1 (123) 456-7890` & `sk-012345679…`
 - **Unsaved changes.** Warn before navigation when data could be lost.
 - **Password managers & 2FA.** Ensure compatibility & allow pasting one-time codes.
+- **Don’t trigger password managers for non-auth fields.** For inputs like “Search” avoid reserved names (e.g., password), use `autocomplete="off"` or a specific token like `autocomplete="one-time-code"` for OTP fields.
 - **Text replacements & expansions.** Some add a trailing whitespace. The input should trim the value to avoid showing a confusing error message.
 - **Windows `<select>` background.** Explicitly set `background-color` & `color` on native `<select>` to avoid dark-mode contrast bugs on Windows.
 
@@ -124,6 +130,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Minimum contrast.** Prefer [APCA](https://apcacontrast.com/) over [WCAG 2](https://webaim.org/resources/contrastchecker/) for more accurate perceptual contrast.
 - **Interactions increase contrast.** `:hover`, `:active`, `:focus` have more contrast than rest state.
 - **Browser UI matches your background.** Set `<meta name="theme-color" content="#000000">` to [align the browser’s theme color with the page background](https://x.com/JohnPhamous/status/1816160187839107342).
+- **Text anti-aliasing & transforms.** Scaling text can change smoothing. Prefer animating a wrapper instead of the text node. If artifacts persist set `translateZ(0)` or `will-change: transform` to promote to its own layer.
 - **Avoid gradient banding.** Some colors & display types will have color banding. [Masks can be used instead](https://x.com/JohnPhamous/status/1724491202148675590).
 
 # Vercel-specific
@@ -168,4 +175,4 @@ We’re hiring people who live for these details. [Check out the job postings](h
 
 ---
 
-Thanks to [Adam](https://x.com/argyleink), [Jimmy](https://x.com/wwwjim), [Jonnie](https://destroytoday.com/), [Lochie](https://x.com/lochieaxon) & [Paco](https://pa.co) for feedback.
+Thanks to [Adam](https://x.com/argyleink), [Jimmy](https://x.com/wwwjim), [Jonnie](https://destroytoday.com/), [Lochie](https://x.com/lochieaxon), [Paco](https://pa.co), [Joe](https://joebell.studio/), & [Austin](https://x.com/austin_malerba) for feedback.
