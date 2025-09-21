@@ -31,7 +31,7 @@ Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVE
   - MUST: Trim values to handle text expansion trailing spaces
   - MUST: No dead zones on checkboxes/radios; label+control share one generous hit target
 - State & navigation
-  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels) Prefer libs like [nuqs](https://nuqs47ngcom/)
+  - MUST: URL reflects state (deep-link filters/tabs/pagination/expanded panels) Prefer libs like [nuqs](https://nuqs.dev)
   - MUST: Back/Forward restores scroll
   - MUST: Links are links—use `<a>/<Link>` for navigation (support Cmd/Ctrl/middle-click)
 - Feedback
