@@ -8,19 +8,19 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Clear focus.** Every focusable element shows a visible focus ring. Prefer `:focus-visible` over `:focus` to avoid distracting pointer users. Set `:focus-within` for grouped controls.
 - **Manage focus.** Use focus traps, move & return focus according to the [WAI-ARIA Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
 - **Match visual & hit targets.** Exception: if the visual target is < 24px, expand its hit target to ≥ 24px. On mobile, the minimum size is 44px.
-- **Mobile input size.** `<input>` font size is ≥ 16px on mobile to prevent iOS Safari auto-zoom/pan on focus. Or set `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />`.
+- **Mobile input size.** `<input>` font size is ≥ 16px on mobile to prevent iOS Safari auto-zoom/pan on focus. Or set `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />`.
 - **Respect zoom.** Never disable browser zoom.
 - **Hydration-safe inputs.** Inputs must not lose focus or value after hydration.
 - **Don’t block paste.** Never disable paste in `<input>` or `<textarea>`.
 - **Loading buttons.** Show a loading indicator & keep the original label.
-- **Minimum loading-state duration.** If you show a spinner/skeleton, add a short show-delay (~150–300 ms) & a minimum visible time (~300–500 ms) to avoid flicker on fast responses.
+- **Minimum loading-state duration.** If you show a spinner/skeleton, add a short show-delay (~150–300 ms) & a minimum visible time (~300–500 ms) to avoid flicker on fast responses. The `<Suspense>` component in React does this automatically.
 - **URL as state.** Persist state in the URL so share, refresh, Back/Forward navigation work e.g., [nuqs](https://nuqs.dev).
 - **Optimistic updates.** Update the UI immediately when success is likely; reconcile on server response. On failure, show an error & roll back or provide Undo.
 - **Ellipsis for further input.** Menu options that open a follow-up e.g., “Rename…” end with an ellipsis.
 - **Confirm destructive actions.** Require confirmation or provide Undo with a safe window.
 - **Prevent double-tap zoom on controls.** Set `touch-action: manipulation`.
 - **Tap highlight follows design.** Set `webkit-tap-highlight-color`.
-- **Design forgiving interactions.** Controls minimize finickiness with generous hit targets, clear affordances, & predictable interactions, i.e., [prediction cones](https://x.com/JohnPhamous/status/1657083267299028992).
+- **Design forgiving interactions.** Controls minimize finickiness with generous hit targets, clear affordances, & predictable interactions, e.g., [prediction cones](https://x.com/JohnPhamous/status/1657083267299028992).
 - **Tooltip timing.** Delay the first tooltip in a group; [subsequent peers have no delay](https://x.com/emilkowalski_/status/1962500739336462340).
 - **Overscroll behavior.** Set `overscroll-behavior: contain` intentionally e.g., in modals/drawers.
 - **Scroll positions persist.** Back/Forward restores prior scroll.
@@ -54,7 +54,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Balance contrast in lockups.** When text & icons sit side by side, adjust weight, size, spacing, or color so they don’t clash. For example, a thin-stroke icon may need a bolder stroke next to medium-weight text.
 - **Responsive coverage.** Verify on mobile, laptop, & ultra-wide. For ultra-wide, zoom out to 50% to simulate.
 - **Respect safe areas.** Account for notches & insets with safe-area variables.
-- **No excessive scrollbars.** Only render useful scrollbars; fix overflow issues to prevent unwanted scrollbars.
+- **No excessive scrollbars.** Only render useful scrollbars; fix overflow issues to prevent unwanted scrollbars. On macOS set ["Show scroll bars" to "Always"](https://support.apple.com/guide/mac-help/change-appearance-settings-mchlp1225/mac#:~:text=or%20status%20bars.-,Show%20scroll%20bars,-Scroll%20bars%20appear) to test what Windows users would see.
 - **Let the browser size things.** Prefer flex/grid/intrinsic layout over measuring in JS. Avoid layout thrash by letting CSS handle flow, wrapping, & alignment.
 
 ## Content
@@ -101,7 +101,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Unsaved changes.** Warn before navigation when data could be lost.
 - **Password managers & 2FA.** Ensure compatibility & allow pasting one-time codes.
 - **Don’t trigger password managers for non-auth fields.** For inputs like “Search” avoid reserved names (e.g., password), use `autocomplete="off"` or a specific token like `autocomplete="one-time-code"` for OTP fields.
-- **Text replacements & expansions.** Some add a trailing whitespace. The input should trim the value to avoid showing a confusing error message.
+- **Text replacements & expansions.** Some input methods add trailing whitespace. The input should trim the value to avoid showing a confusing error message.
 - **Windows `<select>` background.** Explicitly set `background-color` & `color` on native `<select>` to avoid dark-mode contrast bugs on Windows.
 
 ## Performance
@@ -113,12 +113,13 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Minimize layout work.** Batch reads/writes; avoid unnecessary reflows/repaints.
 - **Network latency budgets.** `POST/PATCH/DELETE` complete in <500ms.
 - **Keystroke cost.** Prefer uncontrolled inputs; make controlled loops cheap.
-- **Large lists.** Virtualize large lists e.g., [virtua](https://github.com/inokawa/virtua).
+- **Large lists.** Virtualize large lists e.g., [virtua](https://github.com/inokawa/virtua) or [content-visibility: auto](https://web.dev/articles/content-visibility).
 - **Preload wisely.** Preload only above-the-fold images; lazy-load the rest.
 - **No image-caused CLS.** Set explicit image dimensions & reserve space.
 - **Preconnect to origins.** Use `<link rel="preconnect">` for asset/CDN domains (with crossorigin when needed) to reduce DNS/TLS latency.
 - **Preload fonts.** For critical text to avoid flash & layout shift.
 - **Subset fonts.** Ship only the code points/scripts you use via unicode-range (limit variable axes to what you need) to shrink size.
+- **Don’t use the main thread for expensive work.** Move especially long tasks to [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) to avoid blocking interaction with the page.
 
 ## Design
 
@@ -130,6 +131,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Minimum contrast.** Prefer [APCA](https://apcacontrast.com/) over [WCAG 2](https://webaim.org/resources/contrastchecker/) for more accurate perceptual contrast.
 - **Interactions increase contrast.** `:hover`, `:active`, `:focus` have more contrast than rest state.
 - **Browser UI matches your background.** Set `<meta name="theme-color" content="#000000">` to [align the browser’s theme color with the page background](https://x.com/JohnPhamous/status/1816160187839107342).
+- **Set the appropriate color-scheme.** Style the `<html>` tag with `color-scheme: dark` in dark themes so that scrollbars and other device UI have proper contrast.
 - **Text anti-aliasing & transforms.** Scaling text can change smoothing. Prefer animating a wrapper instead of the text node. If artifacts persist set `translateZ(0)` or `will-change: transform` to promote to its own layer.
 - **Avoid gradient banding.** Some colors & display types will have color banding. [Masks can be used instead](https://x.com/JohnPhamous/status/1724491202148675590).
 
