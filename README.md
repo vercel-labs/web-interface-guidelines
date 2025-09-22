@@ -36,7 +36,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 
 - **Honor `prefers-reduced-motion`.** Provide a reduced-motion variant.
 - **Implementation preference.** Prefer CSS, avoid main-thread JS-driven animations when possible.
-  - Preference: CSS > Web Animations API > Javascript libraries e.g., [motion](https://www.npmjs.com/package/motion).
+  - Preference: CSS > Web Animations API > JavaScript libraries e.g., [motion](https://www.npmjs.com/package/motion).
 - **Compositor-friendly.** Prioritize GPU-accelerated properties (`transform`, `opacity`) & avoid properties that trigger reflows/repaints (`width`, `height`, `top`, `left`).
 - **Necessity check.** Only animate when it clarifies cause & effect or when it adds deliberate delight e.g., [the northern lights](https://x.com/JohnPhamous/status/1831380516509278561).
 - **Easing fits the subject.** Choose easing based on what changes (size, distance, trigger).
