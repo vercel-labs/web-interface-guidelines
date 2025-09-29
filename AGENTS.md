@@ -3,7 +3,7 @@ Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVE
 ## Interactions
 
 - Keyboard
-  - MUST: Full keyboard support per [WAI-ARIA APG](https://wwww3org/WAI/ARIA/apg/patterns/)
+  - MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
   - MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
   - MUST: Manage focus (trap, move, and return) per APG patterns
 - Targets & input
