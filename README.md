@@ -16,7 +16,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Minimum loading-state duration.** If you show a spinner/skeleton, add a short show-delay (~150–300 ms) & a minimum visible time (~300–500 ms) to avoid flicker on fast responses. The `<Suspense>` component in React does this automatically.
 - **URL as state.** Persist state in the URL so share, refresh, Back/Forward navigation work e.g., [nuqs](https://nuqs.dev).
 - **Optimistic updates.** Update the UI immediately when success is likely; reconcile on server response. On failure, show an error & roll back or provide Undo.
-- **Ellipsis for further input.** Menu options that open a follow-up e.g., “Rename…” end with an ellipsis.
+- **Ellipsis for further input & loading states.** Menu options that open a follow-up e.g., "Rename…" & loading/processing states e.g., "Loading…", "Saving…", "Generating…" end with an ellipsis.
 - **Confirm destructive actions.** Require confirmation or provide Undo with a safe window.
 - **Prevent double-tap zoom on controls.** Set `touch-action: manipulation`.
 - **Tap highlight follows design.** Set `webkit-tap-highlight-color`.
