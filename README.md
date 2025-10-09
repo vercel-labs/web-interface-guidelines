@@ -84,7 +84,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 
 ## Forms
 
-- **Enter submits.** When a text input is focused, Enter submits.
+- **Enter submits.** When a text input is focused, Enter submits if it's the only control. If there are many controls, apply to the last control.
 - **Textarea behavior.** In `<textarea>`, ⌘/⌃+Enter submits; Enter inserts a new line.
 - **Labels everywhere.** Every control has a `<label>` or is associated with a label for assistive tech.
 - **Label activation.** Clicking a `<label>` focuses the associated control.
