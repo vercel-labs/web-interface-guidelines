@@ -71,6 +71,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Icons have labels.** Convey the same meaning with text for non-sighted users.
 - **Don’t ship the schema.** Visual layouts may omit visible labels, but accessible names/labels still exist for assistive tech.
 - **Use the ellipsis character.** `…` over three periods `...`.
+- **Truncate long identifiers.** For wallet addresses, hashes, & tokens, show the beginning & end with ellipsis in between e.g., `0x1234…5678`.
 - **Anchored headings.** Set `scroll-margin-top` for headers when linking to sections.
 - **Resilient to user-generated content.** Layouts handle short, average, & very long content.
 - **Locale-aware formats.** Format dates, times, numbers, delimiters, & currencies for the user’s locale.
