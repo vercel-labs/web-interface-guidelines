@@ -108,7 +108,7 @@ Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVE
 - SHOULD: Nested radii: child ≤ parent; concentric
 - SHOULD: Hue consistency: tint borders/shadows/text toward bg hue
 - MUST: Accessible charts (color-blind-friendly palettes)
-- MUST: Meet contrast—prefer [APCA](https://apcacontrastcom/) over WCAG 2
+- MUST: Meet contrast—prefer [APCA](https://apcacontrast.com/) over WCAG 2
 - MUST: Increase contrast on `:hover/:active/:focus`
 - SHOULD: Match browser UI to bg
 - SHOULD: Avoid gradient banding (use masks when needed)
