@@ -120,6 +120,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Preload fonts.** For critical text to avoid flash & layout shift.
 - **Subset fonts.** Ship only the code points/scripts you use via unicode-range (limit variable axes to what you need) to shrink size.
 - **Don’t use the main thread for expensive work.** Move especially long tasks to [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) to avoid blocking interaction with the page.
+- **CSS over JS.** Use CSS for conditional styles instead of JavaScript (eg: React props) where possible, using features such as [:has()](https://developer.mozilla.org/en-US/docs/Web/CSS/:has), [attribute selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors), & other [pseudo-classes](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes).
 
 ## Design
 
