@@ -38,7 +38,7 @@ Concise rules for building accessible, fast, delightful UIs Use MUST/SHOULD/NEVE
   - SHOULD: Optimistic UI; reconcile on response; on failure show error and rollback or offer Undo
   - MUST: Confirm destructive actions or provide Undo window
   - MUST: Use polite `aria-live` for toasts/inline validation
-  - SHOULD: Ellipsis (`…`) for options that open follow-ups (eg, “Rename…”)
+  - SHOULD: Ellipsis (`…`) for options that open follow-ups (eg, "Rename…") and loading states (eg, "Loading…", "Saving…", "Generating…")
 - Touch/drag/scroll
   - MUST: Design forgiving interactions (generous targets, clear affordances; avoid finickiness)
   - MUST: Delay first tooltip in a group; subsequent peers no delay
