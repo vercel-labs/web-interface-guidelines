@@ -21,14 +21,14 @@ COMMAND_FILE="command.md"
 INSTALL_NAME="web-interface-guidelines.md"
 INSTALLED=0
 
-echo "▲ Installing Web Interface Guidelines…"
+echo "▲ Installing Vercel's Web Interface Guidelines…"
 echo ""
 
 # Claude Code
 if [ -d "$HOME/.claude" ]; then
   mkdir -p "$HOME/.claude/commands"
   curl -sL -o "$HOME/.claude/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  printf "${GREEN}✓${RESET} Claude Code\n"
+  printf "${GREEN}✓${RESET} Claude Code Skill\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -36,7 +36,7 @@ fi
 if [ -d "$HOME/.cursor" ]; then
   mkdir -p "$HOME/.cursor/commands"
   curl -sL -o "$HOME/.cursor/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  printf "${GREEN}✓${RESET} Cursor\n"
+  printf "${GREEN}✓${RESET} Cursor Command\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -44,7 +44,7 @@ fi
 if command -v opencode &> /dev/null || [ -d "$HOME/.config/opencode" ]; then
   mkdir -p "$HOME/.config/opencode/command"
   curl -sL -o "$HOME/.config/opencode/command/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  printf "${GREEN}✓${RESET} OpenCode\n"
+  printf "${GREEN}✓${RESET} OpenCode Command\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -62,7 +62,7 @@ if [ -d "$HOME/.codeium" ] || [ -d "$HOME/Library/Application Support/Windsurf" 
     echo "$MARKER" >> "$RULES_FILE"
     echo "" >> "$RULES_FILE"
     curl -sL "$REPO_URL/$COMMAND_FILE" >> "$RULES_FILE"
-    printf "${GREEN}✓${RESET} Windsurf\n"
+    printf "${GREEN}✓${RESET} Windsurf Command\n"
   fi
   INSTALLED=$((INSTALLED + 1))
 fi
@@ -81,7 +81,7 @@ TOMLEOF
   echo "$CONTENT" >> "$TOML_FILE"
   echo '"""' >> "$TOML_FILE"
 
-  printf "${GREEN}✓${RESET} Gemini CLI\n"
+  printf "${GREEN}✓${RESET} Gemini CLI Command\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
