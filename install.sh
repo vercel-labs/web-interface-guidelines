@@ -10,7 +10,7 @@ COMMAND_FILE="command.md"
 INSTALL_NAME="web-interface-guidelines.md"
 INSTALLED=0
 
-echo "Installing Web Interface Guidelines…"
+echo "▲ Installing Web Interface Guidelines…"
 echo ""
 
 # Claude Code
