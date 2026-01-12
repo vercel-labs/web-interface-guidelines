@@ -167,9 +167,25 @@ These preferences reflect Vercel’s brand & product choices. They aren’t univ
 
 # Integrate with Agents
 
-An [AGENTS.md](https://agents.md/) file provides guidance for agents. Use this AGENTS.md with your agents to ensure your interfaces follow these guidelines. We recommend auditing all generated interfaces.
+Use these guidelines with AI coding agents. Audit all generated interfaces.
 
-- [Download AGENTS.md](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/refs/heads/main/AGENTS.md)
+## Review Command
+
+Install `/web-interface-guidelines` to review UI code:
+
+```bash
+curl -fsSL https://vercel.com/design/guidelines/install | bash
+```
+
+Supports Claude Code, Cursor, OpenCode, Windsurf, & Gemini CLI.
+
+For other agents, use the [command prompt](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) directly.
+
+## AGENTS.md
+
+Add [AGENTS.md](https://agents.md/) to your project so agents apply these guidelines during generation.
+
+- [Download AGENTS.md](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/AGENTS.md)
 
 # Join Vercel
 
