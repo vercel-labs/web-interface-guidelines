@@ -5,6 +5,17 @@
 
 set -e
 
+# Colors (only if stdout is a TTY)
+if [ -t 1 ]; then
+  GREEN='\033[32m'
+  DIM='\033[2m'
+  RESET='\033[0m'
+else
+  GREEN=''
+  DIM=''
+  RESET=''
+fi
+
 REPO_URL="https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main"
 COMMAND_FILE="command.md"
 INSTALL_NAME="web-interface-guidelines.md"
@@ -17,7 +28,7 @@ echo ""
 if [ -d "$HOME/.claude" ]; then
   mkdir -p "$HOME/.claude/commands"
   curl -sL -o "$HOME/.claude/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  echo "✓ Claude Code"
+  printf "${GREEN}✓${RESET} Claude Code\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -25,7 +36,7 @@ fi
 if [ -d "$HOME/.cursor" ]; then
   mkdir -p "$HOME/.cursor/commands"
   curl -sL -o "$HOME/.cursor/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  echo "✓ Cursor"
+  printf "${GREEN}✓${RESET} Cursor\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -33,7 +44,7 @@ fi
 if command -v opencode &> /dev/null || [ -d "$HOME/.config/opencode" ]; then
   mkdir -p "$HOME/.config/opencode/command"
   curl -sL -o "$HOME/.config/opencode/command/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  echo "✓ OpenCode"
+  printf "${GREEN}✓${RESET} OpenCode\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -43,7 +54,7 @@ if [ -d "$HOME/.codeium" ] || [ -d "$HOME/Library/Application Support/Windsurf" 
   mkdir -p "$HOME/.codeium/windsurf/memories"
   RULES_FILE="$HOME/.codeium/windsurf/memories/global_rules.md"
   if [ -f "$RULES_FILE" ] && grep -q "$MARKER" "$RULES_FILE"; then
-    echo "✓ Windsurf (already installed)"
+    printf "${GREEN}✓${RESET} Windsurf ${DIM}(already installed)${RESET}\n"
   else
     if [ -f "$RULES_FILE" ]; then
       echo "" >> "$RULES_FILE"
@@ -51,7 +62,7 @@ if [ -d "$HOME/.codeium" ] || [ -d "$HOME/Library/Application Support/Windsurf" 
     echo "$MARKER" >> "$RULES_FILE"
     echo "" >> "$RULES_FILE"
     curl -sL "$REPO_URL/$COMMAND_FILE" >> "$RULES_FILE"
-    echo "✓ Windsurf"
+    printf "${GREEN}✓${RESET} Windsurf\n"
   fi
   INSTALLED=$((INSTALLED + 1))
 fi
@@ -70,7 +81,7 @@ TOMLEOF
   echo "$CONTENT" >> "$TOML_FILE"
   echo '"""' >> "$TOML_FILE"
 
-  echo "✓ Gemini CLI"
+  printf "${GREEN}✓${RESET} Gemini CLI\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
