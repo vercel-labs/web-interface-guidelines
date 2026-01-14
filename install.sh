@@ -99,6 +99,7 @@ if [ $INSTALLED -eq 0 ]; then
   echo "No supported tools detected."
   echo ""
   echo "Install one of these first:"
+  echo "  • Amp Code: https://ampcode.com"
   echo "  • Claude Code: https://claude.ai/code"
   echo "  • Cursor: https://cursor.com"
   echo "  • OpenCode: https://opencode.ai"
