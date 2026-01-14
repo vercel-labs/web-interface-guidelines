@@ -24,6 +24,14 @@ INSTALLED=0
 echo "▲ Installing Vercel's Web Interface Guidelines…"
 echo ""
 
+# Amp Code
+if [ -d "$HOME/.amp" ]; then
+  mkdir -p "$HOME/.config/amp/commands"
+  curl -sL -o "$HOME/.config/amp/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
+  printf "${GREEN}✓${RESET} Amp Code Skill\n"
+  INSTALLED=$((INSTALLED + 1))
+fi
+
 # Claude Code
 if [ -d "$HOME/.claude" ]; then
   mkdir -p "$HOME/.claude/commands"
