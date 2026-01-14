@@ -24,6 +24,14 @@ INSTALLED=0
 echo "▲ Installing Vercel's Web Interface Guidelines…"
 echo ""
 
+# Amp Code
+if [ -d "$HOME/.amp" ]; then
+  mkdir -p "$HOME/.config/amp/commands"
+  curl -sL -o "$HOME/.config/amp/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
+  printf "${GREEN}✓${RESET} Amp Code Skill\n"
+  INSTALLED=$((INSTALLED + 1))
+fi
+
 # Claude Code
 if [ -d "$HOME/.claude" ]; then
   mkdir -p "$HOME/.claude/commands"
@@ -91,6 +99,7 @@ if [ $INSTALLED -eq 0 ]; then
   echo "No supported tools detected."
   echo ""
   echo "Install one of these first:"
+  echo "  • Amp Code: https://ampcode.com"
   echo "  • Claude Code: https://claude.ai/code"
   echo "  • Cursor: https://cursor.com"
   echo "  • OpenCode: https://opencode.ai"
