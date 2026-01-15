@@ -146,4 +146,4 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Meet contrast—prefer [APCA](https://apcacontrast.com/) over WCAG 2
 - MUST: Increase contrast on `:hover`/`:active`/`:focus`
 - SHOULD: Match browser UI to bg
-- SHOULD: Avoid gradient banding (use masks when needed)
+- SHOULD: Avoid dark color gradient banding (use background images when needed)

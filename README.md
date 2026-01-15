@@ -133,7 +133,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Browser UI matches your background.** Set `<meta name="theme-color" content="#000000">` to [align the browser’s theme color with the page background](https://x.com/JohnPhamous/status/1816160187839107342).
 - **Set the appropriate color-scheme.** Style the `<html>` tag with `color-scheme: dark` in dark themes so that scrollbars and other device UI have proper contrast.
 - **Text anti-aliasing & transforms.** Scaling text can change smoothing. Prefer animating a wrapper instead of the text node. If artifacts persist set `translateZ(0)` or `will-change: transform` to promote to its own layer.
-- **Avoid gradient banding.** Some colors & display types will have color banding. [Masks can be used instead](https://x.com/JohnPhamous/status/1724491202148675590).
+- **Avoid gradient banding.** Fading content to dark colors using css masks can cause banding. [Background images can be used instead](https://x.com/JohnPhamous/status/1724491202148675590).
 
 # Vercel-specific
 
