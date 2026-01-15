@@ -75,6 +75,20 @@ if [ -d "$HOME/.codeium" ] || [ -d "$HOME/Library/Application Support/Windsurf" 
   INSTALLED=$((INSTALLED + 1))
 fi
 
+# Antigravity - uses SKILL.md format in skills folder
+if command -v agy &> /dev/null || [ -d "$HOME/.gemini/antigravity" ]; then
+  SKILL_DIR="$HOME/.gemini/antigravity/skills/web-interface-guidelines"
+  mkdir -p "$SKILL_DIR"
+
+  # Download markdown and convert frontmatter to SKILL.md format
+  # Add name field before description, remove argument-hint
+  curl -sL "$REPO_URL/$COMMAND_FILE" | sed 's/^description:/name: web-interface-guidelines\
+description:/' | grep -v "^argument-hint:" > "$SKILL_DIR/SKILL.md"
+
+  printf "${GREEN}✓${RESET} Antigravity Skill\n"
+  INSTALLED=$((INSTALLED + 1))
+fi
+
 # Gemini CLI - uses TOML command format
 if command -v gemini &> /dev/null || [ -d "$HOME/.gemini" ]; then
   mkdir -p "$HOME/.gemini/commands"
@@ -100,11 +114,12 @@ if [ $INSTALLED -eq 0 ]; then
   echo ""
   echo "Install one of these first:"
   echo "  • Amp Code: https://ampcode.com"
+  echo "  • Antigravity: https://antigravity.google"
   echo "  • Claude Code: https://claude.ai/code"
   echo "  • Cursor: https://cursor.com"
+  echo "  • Gemini CLI: https://github.com/google-gemini/gemini-cli"
   echo "  • OpenCode: https://opencode.ai"
   echo "  • Windsurf: https://codeium.com/windsurf"
-  echo "  • Gemini CLI: https://github.com/google-gemini/gemini-cli"
   echo ""
   echo "For Codex CLI, add the guidelines to your project's AGENTS.md."
   exit 1

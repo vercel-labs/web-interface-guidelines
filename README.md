@@ -177,7 +177,7 @@ Install `/web-interface-guidelines` to review UI code:
 curl -fsSL https://vercel.com/design/guidelines/install | bash
 ```
 
-Supports Claude Code, Cursor, OpenCode, Windsurf, & Gemini CLI.
+Supports Antigravity, Claude Code, Cursor, Gemini CLI, OpenCode, & Windsurf.
 
 For other agents, use the [command prompt](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) directly.
 
