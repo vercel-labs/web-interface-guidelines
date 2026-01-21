@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Web Interface Guidelines installer
+# Vercel Web Interface Guidelines installer
 # https://vercel.com/design/guidelines
 
 set -e
@@ -50,9 +50,9 @@ fi
 
 # OpenCode
 if command -v opencode &> /dev/null || [ -d "$HOME/.config/opencode" ]; then
-  mkdir -p "$HOME/.config/opencode/command"
-  curl -sL -o "$HOME/.config/opencode/command/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
-  printf "${GREEN}✓${RESET} OpenCode Command\n"
+  mkdir -p "$HOME/.config/opencode/commands"
+  curl -sL -o "$HOME/.config/opencode/commands/$INSTALL_NAME" "$REPO_URL/$COMMAND_FILE"
+  printf "${GREEN}✓${RESET} OpenCode Commands\n"
   INSTALLED=$((INSTALLED + 1))
 fi
 
@@ -75,9 +75,9 @@ if [ -d "$HOME/.codeium" ] || [ -d "$HOME/Library/Application Support/Windsurf" 
   INSTALLED=$((INSTALLED + 1))
 fi
 
-# Antigravity - uses SKILL.md format in skills folder
+# Antigravity - uses SKILL.md format in global_skills folder
 if command -v agy &> /dev/null || [ -d "$HOME/.gemini/antigravity" ]; then
-  SKILL_DIR="$HOME/.gemini/antigravity/skills/web-interface-guidelines"
+  SKILL_DIR="$HOME/.gemini/antigravity/global_skills/web-interface-guidelines"
   mkdir -p "$SKILL_DIR"
 
   # Download markdown and convert frontmatter to SKILL.md format
@@ -93,15 +93,30 @@ fi
 if command -v gemini &> /dev/null || [ -d "$HOME/.gemini" ]; then
   mkdir -p "$HOME/.gemini/commands"
   TOML_FILE="$HOME/.gemini/commands/web-interface-guidelines.toml"
+  TEMP_FILE=$(mktemp)
 
-  # Download markdown and convert to TOML
-  CONTENT=$(curl -sL "$REPO_URL/$COMMAND_FILE" | sed '1,/^---$/d' | sed '1,/^---$/d')
-  cat > "$TOML_FILE" << 'TOMLEOF'
-description = "Review UI code for Web Interface Guidelines compliance"
-prompt = """
-TOMLEOF
-  echo "$CONTENT" >> "$TOML_FILE"
-  echo '"""' >> "$TOML_FILE"
+  # Download markdown file to temp file and normalize line endings
+  curl -sL "$REPO_URL/$COMMAND_FILE" | tr -d '\r' > "$TEMP_FILE"
+
+  # Extract description from frontmatter (handle possible trailing spaces on ---)
+  DESC=$(awk '/^---[[:space:]]*$/{if(f){exit}else{f=1;next}} f{print}' "$TEMP_FILE" | grep '^description:' | sed 's/^description:[[:space:]]*//')
+
+  # Write TOML header
+  printf 'description = "%s"\n' "$DESC" > "$TOML_FILE"
+  printf 'prompt = """\n' >> "$TOML_FILE"
+
+  # Extract content after frontmatter using awk, escape backslashes for TOML
+  # awk: skip until we've seen two --- lines, then print everything after
+  awk '
+    /^---[[:space:]]*$/ { count++; next }
+    count >= 2 { print }
+  ' "$TEMP_FILE" | sed 's/\\/\\\\/g' >> "$TOML_FILE"
+
+  # Close the multi-line string
+  printf '"""\n' >> "$TOML_FILE"
+
+  # Cleanup
+  rm -f "$TEMP_FILE"
 
   printf "${GREEN}✓${RESET} Gemini CLI Command\n"
   INSTALLED=$((INSTALLED + 1))
