@@ -75,6 +75,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Resilient to user-generated content.** Layouts handle short, average, & very long content.
 - **Locale-aware formats.** Format dates, times, numbers, delimiters, & currencies for the user’s locale.
 - **Prefer language settings over location.** Detect language via `Accept-Language` header & `navigator.languages`. Never rely on IP/GPS for language.
+- **Shield verbatim content from translation.** Wrap brand names, product names, code tokens, & technical identifiers with `translate="no"` so browser auto-translate leaves them intact.
 - **Accessible content.** Set accurate names (`aria-label`), hide decoration (`aria-hidden`) & verify in the [accessibility tree](https://developer.chrome.com/blog/full-accessibility-tree).
 - **Icon-only buttons are named.** Provide a descriptive `aria-label`.
 - **Semantics before ARIA.** Prefer native elements (`button`, `a`, `label`, `table`), before `aria-*`.

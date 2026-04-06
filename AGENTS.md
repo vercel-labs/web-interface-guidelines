@@ -99,6 +99,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: `scroll-margin-top` on headings; "Skip to content" link; hierarchical `<h1>`–`<h6>`
 - MUST: Resilient to user-generated content (short/avg/very long)
 - MUST: Locale-aware dates/times/numbers (`Intl.DateTimeFormat`, `Intl.NumberFormat`)
+- SHOULD: `translate="no"` on brand names, code tokens, & identifiers to prevent garbled auto-translation
 - MUST: Accurate `aria-label`; decorative elements `aria-hidden`
 - MUST: Icon-only buttons have descriptive `aria-label`
 - MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
