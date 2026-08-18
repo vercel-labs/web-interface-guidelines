@@ -5,7 +5,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 ### Keyboard
 
 - MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
-- MUST: Visible focus rings (`:focus-visible`; group with `:focus-within`)
+- MUST: Visible, unobscured focus rings (`:focus-visible`; group with `:focus-within`); sticky/fixed elements never cover focus
 - MUST: Manage focus (trap, move, return) per APG patterns
 - NEVER: `outline: none` without visible focus replacement
 
@@ -55,6 +55,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Delay first tooltip; subsequent peers instant
 - MUST: `overscroll-behavior: contain` in modals/drawers
 - MUST: During drag, disable text selection and set `inert` on dragged elements
+- MUST: Drag/swipe/pinch/path gestures have a tap/click and keyboard alternative unless essential
 - MUST: If it looks clickable, it must be clickable
 
 ### Autofocus
@@ -70,7 +71,8 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - NEVER: `transition: all`—list properties explicitly
 - SHOULD: Animate only to clarify cause/effect or add deliberate delight
 - SHOULD: Choose easing to match the change (size/distance/trigger)
-- MUST: Animations interruptible and input-driven (no autoplay)
+- MUST: Animations interruptible and input-driven; autoplay only for muted, non-essential loops
+- MUST: Autoplay motion >5s alongside other content has pause, stop, or hide controls
 - MUST: Correct `transform-origin` (motion starts where it "physically" should)
 - MUST: SVG transforms on `<g>` wrapper with `transform-box: fill-box`
 
@@ -103,6 +105,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Accurate `aria-label`; decorative elements `aria-hidden`
 - MUST: Icon-only buttons have descriptive `aria-label`
 - MUST: Prefer native semantics (`button`, `a`, `label`, `table`) before ARIA
+- MUST: Media has captions/transcripts/descriptions as applicable; controls are keyboard-operable; decorative media hidden from assistive tech
 - MUST: Non-breaking spaces: `10&nbsp;MB`, `⌘&nbsp;K`, brand names
 
 ## Content Handling
@@ -125,6 +128,8 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Prevent CLS (explicit image dimensions)
 - SHOULD: `<link rel="preconnect">` for CDN domains
 - SHOULD: Critical fonts: `<link rel="preload" as="font">` with `font-display: swap`
+- SHOULD: `<video autoplay muted loop playsinline>` over animated GIF; provide still/reduced-motion alternative
+- SHOULD: Short non-essential loops include a Safari H.264 MP4 `<picture>` source, `prefers-reduced-motion` media condition, and still fallback
 
 ## Dark Mode & Theming
 
