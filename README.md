@@ -5,7 +5,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 ## Interactions
 
 - **Keyboard works everywhere.** All flows are keyboard-operable & follow the [WAI-ARIA Authoring Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
-- **Clear focus.** Every focusable element shows a visible focus ring. Prefer `:focus-visible` over `:focus` to avoid distracting pointer users. Set `:focus-within` for grouped controls.
+- **Clear focus.** Every focusable element shows a visible, unobscured focus ring. Prefer `:focus-visible` over `:focus` to avoid distracting pointer users. Set `:focus-within` for grouped controls. Sticky headers, footers, banners, & overlays never cover the focused element.
 - **Manage focus.** Use focus traps, move & return focus according to the [WAI-ARIA Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
 - **Match visual & hit targets.** Exception: if the visual target is < 24px, expand its hit target to ≥ 24px. On mobile, the minimum size is 44px.
 - **Mobile input size.** `<input>` font size is ≥ 16px on mobile to prevent iOS Safari auto-zoom/pan on focus. Or set `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />`.
@@ -28,6 +28,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **No dead zones.** If part of a control looks interactive, it should be interactive. Don’t leave users guessing where to interact.
 - **Deep-link everything.** Filters, tabs, pagination, expanded panels, anytime `useState` is used.
 - **Clean drag interactions.** Disable text selection & apply [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert) (which prevents interaction) while an element is dragged so selection/hover don't occur simultaneously.
+- **Gestures have alternatives.** Every drag, swipe, pinch, or path-based action also works with a [tap/click control & keyboard](https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html) unless the gesture is essential.
 - **Links are links.** Use `<a>` or `<Link>` for navigation so standard browser behaviors work (Cmd/Ctrl+Click, middle-click, right-click to open in a new tab). Never substitute with `<button>` or `<div>` for navigational links.
 - **Announce async updates.** Use polite aria-live for toasts & inline validation.
 - **Locale-aware keyboard shortcuts.** Internationalize keyboard shortcuts for non-QWERTY layouts. Show platform-specific symbols.
@@ -41,7 +42,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Necessity check.** Only animate when it clarifies cause & effect or when it adds deliberate delight e.g., [the northern lights](https://x.com/JohnPhamous/status/1831380516509278561).
 - **Easing fits the subject.** Choose easing based on what changes (size, distance, trigger).
 - **Interruptible.** Animations are cancelable by user input.
-- **Input-driven.** Avoid autoplay; animate in response to actions.
+- **Input-driven.** Avoid autoplay except for muted, non-essential loops. Automatically playing motion lasting [>5 seconds](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html) alongside other content has pause, stop, or hide controls.
 - **Correct transform origin.** Anchor motion to where it “physically” starts.
 - **Never `transition: all`.** Explicitly list only the properties you intend to animate (typically `opacity`, `transform`). `all` can unintentionally animate layout-affecting properties causing jank.
 - **Cross-browser SVG transforms.** Apply CSS transforms/animations to `<g>` wrappers & set
@@ -80,6 +81,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Icon-only buttons are named.** Provide a descriptive `aria-label`.
 - **Semantics before ARIA.** Prefer native elements (`button`, `a`, `label`, `table`), before `aria-*`.
 - **Headings & skip link.** Hierarchical `<h1–h6>` & a “Skip to content” link.
+- **Accessible media.** [Caption speech & meaningful sounds](https://www.w3.org/WAI/media/av/), provide transcripts for audio-only content, & describe essential visual information. Decorative media is hidden from assistive tech; media controls are keyboard-operable.
 - **Brand resources from the logo.** [Right-click the nav logo](https://x.com/JohnPhamous/status/1636427186566762496) to surface brand assets for quick access.
 - **Non-breaking spaces for glued terms.** Use a non-breaking space `&nbsp;` to keep units, shortcuts & names together: `10 MB` → `10&nbsp;MB`, `⌘ + K` → `⌘&nbsp;+&nbsp;K`, `Vercel SDK` → `Vercel&nbsp;SDK`. Use `&#x2060;` for no space.
 
@@ -121,6 +123,8 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Preload fonts.** For critical text to avoid flash & layout shift.
 - **Subset fonts.** Ship only the code points/scripts you use via unicode-range (limit variable axes to what you need) to shrink size.
 - **Don’t use the main thread for expensive work.** Move especially long tasks to [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) to avoid blocking interaction with the page.
+- **Video over animated GIF.** Prefer `<video autoplay muted loop playsinline>` for looping animation. [Modern video is typically much smaller than GIF](https://web.dev/articles/replace-gifs-with-videos). Provide a still alternative & honor `prefers-reduced-motion`.
+- **Safari video-as-image.** For short, non-essential loops, add an [H.264 MP4 source to `<picture>`](https://developer.apple.com/documentation/webkit/delivering-video-content-for-safari#Use-MP4-Video-Instead-of-Animated-GIFs). Safari renders the video through its image pipeline; other browsers use the still fallback. Gate the MP4 source with `prefers-reduced-motion`. Use `<video>` when users need playback controls or the animation conveys essential information.
 
 ## Design
 
@@ -172,15 +176,11 @@ Use these guidelines with AI coding agents. Audit all generated interfaces.
 
 ## Review Command
 
-Install `/web-interface-guidelines` to review UI code:
+Install the `web-design-guidelines` skill to review UI code:
 
 ```bash
-curl -fsSL https://vercel.com/design/guidelines/install | bash
+npx skills add https://github.com/vercel-labs/agent-skills --skill web-design-guidelines
 ```
-
-Supports Antigravity, Claude Code, Cursor, Gemini CLI, OpenCode, & Windsurf.
-
-For other agents, use the [command prompt](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md) directly.
 
 ## AGENTS.md
 
