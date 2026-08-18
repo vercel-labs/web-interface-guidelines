@@ -93,7 +93,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: `<title>` matches current context
 - MUST: No dead ends; always offer next step/recovery
 - MUST: Design empty/sparse/dense/error states
-- SHOULD: Curly quotes (" "); avoid widows/orphans (`text-wrap: balance`)
+- SHOULD: Curly quotes (“ ”); avoid widows/orphans (`text-wrap: balance`)
 - MUST: `font-variant-numeric: tabular-nums` for number comparisons
 - MUST: Redundant status cues (not color-only); icons have text labels
 - MUST: Accessible names exist even when visuals omit labels
