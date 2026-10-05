@@ -54,6 +54,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Generous targets, clear affordances; avoid finicky interactions
 - MUST: Delay first tooltip; subsequent peers instant
 - MUST: `overscroll-behavior: contain` in modals/drawers
+- SHOULD: When suppressing page rubber-band bounce, set `overscroll-behavior: none` on `<html>` inside `@media (pointer: fine)`; keep coarse-pointer page defaults for pull-to-refresh. Test hybrid touch devices: `pointer` describes the primary input, and `none` also disables scroll chaining and native swipe navigation
 - MUST: During drag, disable text selection and set `inert` on dragged elements
 - MUST: Drag/swipe/pinch/path gestures have a tap/click and keyboard alternative unless essential
 - MUST: If it looks clickable, it must be clickable

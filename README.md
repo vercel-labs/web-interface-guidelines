@@ -23,6 +23,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Design forgiving interactions.** Controls minimize finickiness with generous hit targets, clear affordances, & predictable interactions, e.g., [prediction cones](https://x.com/JohnPhamous/status/1657083267299028992).
 - **Tooltip timing.** Delay the first tooltip in a group; [subsequent peers have no delay](https://x.com/emilkowalski_/status/1962500739336462340).
 - **Overscroll behavior.** Set `overscroll-behavior: contain` intentionally e.g., in modals/drawers.
+- **Desktop rubber-banding.** To [suppress rubber-band bounce](https://x.com/witsdev/status/2105095515817861298), set [`overscroll-behavior: none`](https://developer.mozilla.org/en-US/docs/Web/CSS/overscroll-behavior) on `<html>` inside `@media (pointer: fine)`. Keep page overscroll defaults on coarse-pointer devices to preserve mobile pull-to-refresh. [`pointer`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer) describes the primary input, so test hybrid touch devices separately. `none` also disables scroll chaining & native swipe navigation.
 - **Scroll positions persist.** Back/Forward restores prior scroll.
 - **Autofocus for speed.** On desktop screens with a single primary input, autofocus. Rarely autofocus on mobile because the keyboard opening can cause layout shift.
 - **No dead zones.** If part of a control looks interactive, it should be interactive. Don’t leave users guessing where to interact.
