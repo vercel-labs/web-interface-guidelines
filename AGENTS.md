@@ -5,7 +5,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 ### Keyboard
 
 - MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
-- MUST: Visible, unobscured focus rings (`:focus-visible`; group with `:focus-within`); sticky/fixed elements never cover focus
+- MUST: Visible, unobscured focus rings (`:focus-visible`; group with `:has(:focus-visible)`); sticky/fixed elements never cover focus
 - MUST: Manage focus (trap, move, return) per APG patterns
 - NEVER: `outline: none` without visible focus replacement
 
