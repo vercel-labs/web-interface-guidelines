@@ -31,7 +31,7 @@ Read files, check against rules below. Output concise but comprehensive—sacrif
 - Interactive elements need visible focus: `focus-visible:ring-*` or equivalent
 - Never `outline-none` / `outline: none` without focus replacement
 - Use `:focus-visible` over `:focus` (avoid focus ring on click)
-- Group focus with `:focus-within` for compound controls
+- Group focus with `:has(:focus-visible)` for compound controls
 - Sticky headers/footers/overlays must not cover the focused element
 
 ### Forms
