@@ -7,6 +7,8 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Full keyboard support per [WAI-ARIA APG](https://www.w3.org/WAI/ARIA/apg/patterns/)
 - MUST: Visible, unobscured focus rings (`:focus-visible`; group with `:focus-within`); sticky/fixed elements never cover focus
 - MUST: Manage focus (trap, move, return) per APG patterns
+- MUST: When the focused element is removed, move focus to its replacement, next item, or nearest heading—never `<body>`
+- MUST: Single-key shortcuts ignore text fields/`contenteditable`, IME composition (`isComposing`), key repeat (`repeat`), and modifier combos they don't own
 - NEVER: `outline: none` without visible focus replacement
 
 ### Targets & Input
@@ -54,6 +56,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Generous targets, clear affordances; avoid finicky interactions
 - MUST: Delay first tooltip; subsequent peers instant
 - MUST: `overscroll-behavior: contain` in modals/drawers
+- MUST: Close modals on backdrop click only when the pointer went down on the backdrop (text selection can end outside)
 - SHOULD: When suppressing page rubber-band bounce, set `overscroll-behavior: none` on `<html>` inside `@media (pointer: fine)`; keep coarse-pointer page defaults for pull-to-refresh. Test hybrid touch devices: `pointer` describes the primary input, and `none` also disables scroll chaining and native swipe navigation
 - MUST: During drag, disable text selection and set `inert` on dragged elements
 - MUST: Drag/swipe/pinch/path gestures have a tap/click and keyboard alternative unless essential
@@ -86,6 +89,8 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: Respect safe areas (`env(safe-area-inset-*)`)
 - MUST: Avoid unwanted scrollbars; fix overflows
 - SHOULD: Flex/grid over JS measurement for layout
+- MUST: Sticky/fixed bars have an opaque background; check with content scrolled beneath
+- MUST: Popovers/menus/tooltips render in a portal or top layer (`transform`/`filter`/`backdrop-filter`/`contain` ancestors trap `position: fixed`; `overflow: hidden` clips)
 
 ## Content & Accessibility
 
@@ -94,6 +99,9 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 - MUST: `<title>` matches current context
 - MUST: No dead ends; always offer next step/recovery
 - MUST: Design empty/sparse/dense/error states
+- MUST: Failed requests show the error with Retry—never the empty state; keep last good data with its age
+- NEVER: Render missing data as `0`, `NaN`, `undefined`, `null`, or 1970 dates; use an em dash or a reason
+- MUST: Capped lists state the cap ("Showing 50 of 312") with a way to see the rest
 - SHOULD: Curly quotes (“ ”); avoid widows/orphans (`text-wrap: balance`)
 - MUST: `font-variant-numeric: tabular-nums` for number comparisons
 - MUST: Redundant status cues (not color-only); icons have text labels
@@ -135,6 +143,7 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 ## Dark Mode & Theming
 
 - MUST: `color-scheme: dark` on `<html>` for dark themes
+- MUST: Apply the saved theme before first paint (inline `<head>` script sets theme + `color-scheme`)—no wrong-theme flash
 - SHOULD: `<meta name="theme-color">` matches page background
 - MUST: Native `<select>`: explicit `background-color` and `color` (Windows fix)
 

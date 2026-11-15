@@ -33,6 +33,7 @@ Read files, check against rules below. Output concise but comprehensive—sacrif
 - Use `:focus-visible` over `:focus` (avoid focus ring on click)
 - Group focus with `:focus-within` for compound controls
 - Sticky headers/footers/overlays must not cover the focused element
+- Focused element removed (dialog closed, row deleted)? Move focus to replacement/next item/heading—never `<body>`
 
 ### Forms
 
@@ -73,6 +74,9 @@ Read files, check against rules below. Output concise but comprehensive—sacrif
 - Text containers handle long content: `truncate`, `line-clamp-*`, or `break-words`
 - Flex children need `min-w-0` to allow text truncation
 - Handle empty states—don't render broken UI for empty strings/arrays
+- Failed fetch ≠ empty: show the error + Retry, never the empty state
+- Missing values: `—` or a reason, never `0`/`NaN`/`undefined`/`null`/1970 dates
+- Capped lists say so ("Showing 50 of 312") with a way to see the rest
 - User-generated content: anticipate short, average, and very long inputs
 
 ### Images
@@ -108,17 +112,22 @@ Read files, check against rules below. Output concise but comprehensive—sacrif
 - During drag: disable text selection, `inert` on dragged elements
 - Drag/swipe/pinch/path gestures need tap/click and keyboard alternatives unless essential
 - `autoFocus` sparingly—desktop only, single primary input; avoid on mobile
+- Single-key shortcuts skip inputs/`contenteditable`, `isComposing`, `event.repeat`, unowned modifier combos
+- Modal backdrop closes only if `pointerdown` started on the backdrop
 
 ### Safe Areas & Layout
 
 - Full-bleed layouts need `env(safe-area-inset-*)` for notches
 - Avoid unwanted scrollbars: `overflow-x-hidden` on containers, fix content overflow
 - Flex/grid over JS measurement for layout
+- Sticky/fixed bars need an opaque background (check with content scrolled under)
+- Popovers/menus/tooltips: portal or top layer—`transform`/`filter`/`backdrop-filter` ancestors trap `position: fixed`
 
 ### Dark Mode & Theming
 
 - `color-scheme: dark` on `<html>` for dark themes (fixes scrollbar, inputs)
 - `<meta name="theme-color">` matches page background
+- Saved theme applied before first paint (inline `<head>` script)—no wrong-theme flash
 - Native `<select>`: explicit `background-color` and `color` (Windows dark mode)
 
 ### Locale & i18n
@@ -165,6 +174,7 @@ Read files, check against rules below. Output concise but comprehensive—sacrif
 - `autoFocus` without clear justification
 - Animated GIF when compressed video is suitable
 - Gesture-only action without tap/click and keyboard alternative
+- Fetch error caught and rendered as the empty state
 
 ## Output Format
 
