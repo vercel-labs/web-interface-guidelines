@@ -7,6 +7,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Keyboard works everywhere.** All flows are keyboard-operable & follow the [WAI-ARIA Authoring Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
 - **Clear focus.** Every focusable element shows a visible, unobscured focus ring. Prefer `:focus-visible` over `:focus` to avoid distracting pointer users. Set `:focus-within` for grouped controls. Sticky headers, footers, banners, & overlays never cover the focused element.
 - **Manage focus.** Use focus traps, move & return focus according to the [WAI-ARIA Patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
+- **Focus survives removal.** When the focused element is removed (a dialog closes, a row is deleted, a list re-renders), move focus to its replacement, the next item, or the nearest heading. Focus that falls to `<body>` sends keyboard & screen-reader users back to the top of the page.
 - **Match visual & hit targets.** Exception: if the visual target is < 24px, expand its hit target to ≥ 24px. On mobile, the minimum size is 44px.
 - **Mobile input size.** `<input>` font size is ≥ 16px on mobile to prevent iOS Safari auto-zoom/pan on focus. Or set `<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />`.
 - **Respect zoom.** Never disable browser zoom.
@@ -33,6 +34,8 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Links are links.** Use `<a>` or `<Link>` for navigation so standard browser behaviors work (Cmd/Ctrl+Click, middle-click, right-click to open in a new tab). Never substitute with `<button>` or `<div>` for navigational links.
 - **Announce async updates.** Use polite aria-live for toasts & inline validation.
 - **Locale-aware keyboard shortcuts.** Internationalize keyboard shortcuts for non-QWERTY layouts. Show platform-specific symbols.
+- **Shortcuts stay out of the way.** Single-key shortcuts ignore events from text fields & `contenteditable`, IME composition ([`event.isComposing`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/isComposing)), key repeat (`event.repeat`), & modifier combinations they don’t own.
+- **Backdrop dismissal starts on the backdrop.** Close a modal on backdrop click only when the pointer went down on the backdrop, so selecting text inside the dialog & releasing outside it doesn’t dismiss it.
 
 ## Animations
 
@@ -58,6 +61,8 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Respect safe areas.** Account for notches & insets with [safe-area variables](https://developer.mozilla.org/en-US/docs/Web/CSS/env).
 - **No excessive scrollbars.** Only render useful scrollbars; fix overflow issues to prevent unwanted scrollbars. On macOS set ["Show scroll bars" to "Always"](https://support.apple.com/guide/mac-help/change-appearance-settings-mchlp1225/mac#:~:text=or%20status%20bars.-,Show%20scroll%20bars,-Scroll%20bars%20appear) to test what Windows users would see.
 - **Let the browser size things.** Prefer flex/grid/intrinsic layout over measuring in JS. Avoid layout thrash by letting CSS handle flow, wrapping, & alignment.
+- **Opaque sticky surfaces.** Sticky & fixed bars have a solid background so content scrolling underneath never shows through. Check with the page scrolled & with the longest title.
+- **Overlays escape their containers.** Render popovers, menus, & tooltips in a portal or the top layer (`popover`, `<dialog>`). An ancestor with `transform`, `filter`, `backdrop-filter`, or `contain: paint` [becomes the containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block) for `position: fixed`, & `overflow: hidden` clips it.
 
 ## Content
 
@@ -66,6 +71,9 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Accurate page titles.** `<title>` reflects the current context.
 - **No dead ends.** Every screen offers a next step or recovery path.
 - **All states designed.** Empty, sparse, dense, & error states.
+- **Failure isn’t empty.** A failed request never renders as the empty state. Say what failed, keep the last good data with its age if you have it, & offer Retry.
+- **No placeholder values.** Missing data renders as an em dash or a short reason, never `0`, `NaN`, `undefined`, `null`, `[object Object]`, or a 1970 date.
+- **State the cap.** When a list or table is limited, say so (“Showing 50 of 312”) & offer a way to see the rest. Never truncate silently.
 - **Typographic quotes.** Prefer curly quotes (“ ”) over straight quotes (" ").
 - **Avoid widows/orphans.** Tidy rag & line breaks.
 - **Tabular numbers for comparisons.** Use `font-variant-numeric: tabular-nums` or a monospace like [Geist Mono](https://vercel.com/font).
@@ -138,6 +146,7 @@ Interfaces succeed because of hundreds of choices. This is a living, non-exhaust
 - **Interactions increase contrast.** `:hover`, `:active`, `:focus` have more contrast than rest state.
 - **Browser UI matches your background.** Set `<meta name="theme-color" content="#000000">` to [align the browser’s theme color with the page background](https://x.com/JohnPhamous/status/1816160187839107342).
 - **Set the appropriate color-scheme.** Style the `<html>` tag with `color-scheme: dark` in dark themes so that scrollbars and other device UI have proper contrast.
+- **No theme flash.** Apply the saved theme before first paint with a small inline script in `<head>` that sets the theme attribute & `color-scheme`, so the page never loads in the wrong theme first.
 - **Text anti-aliasing & transforms.** Scaling text can change smoothing. Prefer animating a wrapper instead of the text node. If artifacts persist set `translateZ(0)` or `will-change: transform` to promote to its own layer.
 - **Avoid gradient banding.** Fading content to dark colors using css masks can cause banding. [Background images can be used instead](https://x.com/JohnPhamous/status/1724491202148675590).
 
